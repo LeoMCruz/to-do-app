@@ -27,3 +27,10 @@ export const BottomButton = styled.TouchableOpacity`
   width: ${(props) => props.xSize}%;
   border-radius: 8px;
 `;
+
+export const ItemButton = styled.TouchableOpacity`
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+`;

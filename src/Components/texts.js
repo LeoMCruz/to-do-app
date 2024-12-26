@@ -28,3 +28,9 @@ export const DoneText = styled.Text`
   font-size: 12px;
   font-weight: bold;
 `;
+
+export const ItemText = styled.Text`
+  font-size: 16px;
+  color: #333;
+  text-decoration: ${(props) => (props.done ? "line-through" : "none")};
+`;

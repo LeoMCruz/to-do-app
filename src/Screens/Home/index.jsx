@@ -8,30 +8,29 @@ import {
   BottomView,
   SearchArea,
 } from "../../Components/views";
-import HomeHeader from "./homeHeader";
+import HomeHeader from "./components/homeHeader";
 import { BottomButton, Button } from "../../Components/button";
 import PlusCircle from "../../assets/PlusCircleRegular.svg";
-import SearchContainer from "./searchContainer";
+import SearchContainer from "./components/searchContainer";
 import { ButtonText } from "../../Components/texts";
-import TaskArea from "./taskArea";
+import TaskArea from "./components/taskArea";
 
 export default function Home() {
   return (
     <SafeAreaView>
-      <Container>
-        <Content behavior={Platform.OS === "ios" ? "padding" : ""} enabled>
-          <StatusBar barStyle="auto" />
-          <HomeHeader />
-          <SearchContainer />
-          <TaskArea />
-          <BottomView>
-            <BottomButton xSize={30} ySize={52}>
-              <ButtonText>Criar</ButtonText>
-              <PlusCircle width={20} height={20} />
-            </BottomButton>
-          </BottomView>
-        </Content>
-      </Container>
+      <Content behavior={Platform.OS === "ios" ? "padding" : ""} enabled>
+        <StatusBar barStyle="auto" />
+        <HomeHeader />
+        <SearchContainer />
+        <TaskArea />
+
+        <BottomView>
+          <BottomButton xSize={30} ySize={52}>
+            <ButtonText>Criar</ButtonText>
+            <PlusCircle width={20} height={20} />
+          </BottomButton>
+        </BottomView>
+      </Content>
     </SafeAreaView>
   );
 }
