@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Dimensions } from "react-native";
+import { Dimensions, Modal } from "react-native";
 
 export const SafeAreaView = styled.SafeAreaView`
   flex: 1;
@@ -76,6 +76,7 @@ export const TaskStatus = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 90%;
+  margin-bottom: 23px;
 `;
 
 export const MainTaskContainer = styled.View`
@@ -85,6 +86,7 @@ export const MainTaskContainer = styled.View`
   justify-content: center;
   position: absolute;
   width: 100%;
+  height: ${screenHeight * 0.548}px;
 `;
 
 export const StatusWCount = styled.View`
@@ -116,7 +118,6 @@ export const ZeroTask = styled.View`
   border-color: #e0dce4;
   justify-content: center;
   align-items: center;
-  margin-top: 23px;
 `;
 
 export const SvgContainer = styled.View`
@@ -124,9 +125,10 @@ export const SvgContainer = styled.View`
 `;
 
 export const FlatListItems = styled.View`
-  width: 90%;
+  width: 95.5%;
   height: ${screenHeight * 0.1}px;
   justify-content: center;
+  align-self: center;
   gap: 8px;
   border-radius: 8px;
   padding: 12px;
@@ -135,4 +137,44 @@ export const FlatListItems = styled.View`
   border-width: 1px;
   border-color: #d1cbd7;
   margin-bottom: 12px;
+  margin: 4px 0;
+`;
+
+export const FlatListTextView = styled.View`
+  height: ${(props) => props.ySize}px;
+  width: ${(props) => props.xSize}%;
+`;
+
+export const ModalContainer = styled.View`
+  width: 90%;
+  height: ${screenHeight * 0.26}px;
+  background-color: #f0edf2;
+  border-width: 1px;
+  border-color: #d1cbd7;
+  border-radius: 8px;
+  padding: 12px;
+  gap: 8px;
+`;
+
+export const ModalMainView = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: #00000080;
+`;
+
+export const ModalHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  width: 100%;
+`;
+
+export const ModalBottom = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  bottom: 12px;
+  align-self: center;
 `;

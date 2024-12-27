@@ -31,6 +31,7 @@ export const DoneText = styled.Text`
 
 export const ItemText = styled.Text`
   font-size: 16px;
+  text-align: justify;
   color: #333;
   text-decoration: ${(props) => (props.done ? "line-through" : "none")};
 `;
