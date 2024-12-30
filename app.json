@@ -8,21 +8,41 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/ship.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F0EDF2"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.leomcruz.todoapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.leomcruz.todoapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Inter_18pt-Black.otf",
+            "./assets/fonts/Inter_18pt-Bold.otf",
+            "./assets/fonts/Inter_18pt-ExtraBold.otf",
+            "./assets/fonts/Inter_18pt-ExtraLight.otf",
+            "./assets/fonts/Inter_18pt-Light.otf",
+            "./assets/fonts/Inter_18pt-Medium.otf",
+            "./assets/fonts/Inter_18pt-Regular.otf",
+            "./assets/fonts/Inter_18pt-SemiBold.otf",
+            "./assets/fonts/Inter_18pt-Thin.otf"
+          ]
+        }
+      ]
+    ]
   }
 }

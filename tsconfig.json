@@ -1,6 +1,19 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,
+    "jsx": "react",
+    "lib": ["ES2015", "DOM"],
+    "target": "ES2015",
+    "moduleResolution": "node",
+    "allowJs": true
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.svg"
+  ],
+  "files": [
+    "custom.d.ts"
+  ]
 }
