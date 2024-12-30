@@ -14,6 +14,9 @@ import { FakeButton, Button, ModalButton, ModalFakeButton } from "../../../Compo
 import Close from "../../../assets/close.svg";
 import PlusCircle from "../../../assets/PlusCircleRegular.svg";
 import { Input, ModalInput } from "../../../Components/Inputs";
+import { Dimensions } from "react-native";
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const MAX_INPUT_HEIGHT = SCREEN_HEIGHT * 0.25;
 
 export function DeleteEditModal({ closeModal, taskId, task, openEdit }: { closeModal: () => void, taskId: number | null, task: string, openEdit: () => void }) {
 
@@ -44,7 +47,7 @@ export function DeleteEditModal({ closeModal, taskId, task, openEdit }: { closeM
 
 export function EditModal({ closeModal, taskId, task }: { closeModal: () => void, taskId: number | null, task: string }) {
   const [editedTask, setEditedTask] = useState("");
-  const [inputHeight, setInputHeight] = useState(0);
+  const [inputHeight, setInputHeight] = useState(61);
 
   const handleContentSizeChange = (event: {
     nativeEvent: { 
@@ -53,7 +56,11 @@ export function EditModal({ closeModal, taskId, task }: { closeModal: () => void
       } 
     }
   }) => {
-    setInputHeight(event.nativeEvent.contentSize.height);
+    const newHeight = Math.min(
+      Math.max(61, event.nativeEvent.contentSize.height),
+      MAX_INPUT_HEIGHT
+    );
+    setInputHeight(newHeight);
   };
 
   return (
@@ -66,7 +73,7 @@ export function EditModal({ closeModal, taskId, task }: { closeModal: () => void
             </FakeButton>
           </ModalHeader>
           <RowView xSize={100}>
-            <FlatListTextView xSize={77} ySize={Math.max(61, inputHeight)}>
+            <FlatListTextView xSize={77} ySize={inputHeight} maxHeight={MAX_INPUT_HEIGHT}>
               <ModalInput
                 xSize={100} ySize={100}
                 scrollEnabled={true}
@@ -76,6 +83,7 @@ export function EditModal({ closeModal, taskId, task }: { closeModal: () => void
                 textBreakStrategy="simple"
                 defaultValue={task}
                 onChangeText={(text: string) => setEditedTask(text)}
+                maxHeight={MAX_INPUT_HEIGHT}
               />
             </FlatListTextView>
             <ModalButton xSize={18} ySize={57}>
@@ -98,7 +106,11 @@ export function CreateTaskModal({closeModal}: {closeModal: () => void}){
       } 
     }
   }) => {
-    setInputHeight(event.nativeEvent.contentSize.height);
+    const newHeight = Math.min(
+      Math.max(61, event.nativeEvent.contentSize.height),
+      MAX_INPUT_HEIGHT
+    );
+    setInputHeight(newHeight);
   };
 
   return (
@@ -111,7 +123,7 @@ export function CreateTaskModal({closeModal}: {closeModal: () => void}){
             </FakeButton>
           </ModalHeader>
           <RowView xSize={100}>
-            <FlatListTextView xSize={77} ySize={Math.max(61, inputHeight)}>
+            <FlatListTextView xSize={77} ySize={inputHeight} maxHeight={MAX_INPUT_HEIGHT}>
               <ModalInput
                 xSize={100} ySize={100}
                 placeholder="Adicione uma nova tarefa"
@@ -122,6 +134,7 @@ export function CreateTaskModal({closeModal}: {closeModal: () => void}){
                 textBreakStrategy="simple"
                 value={task}
                 onChangeText={(text: string) => setTask(text)}
+                maxHeight={MAX_INPUT_HEIGHT}
               />
             </FlatListTextView>
             {task? (

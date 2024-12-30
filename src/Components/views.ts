@@ -8,6 +8,12 @@ interface allViewProps extends ViewProps{
   done?: boolean;
 }
 
+interface maxHeightProps extends ViewProps{
+  ySize: number;
+  xSize?: number;
+  maxHeight?: number;
+}
+
 export const SafeAreaView = styled.SafeAreaView`
   flex: 1;
   background-color: #fff;
@@ -147,9 +153,10 @@ export const FlatListItems = styled.View<allViewProps>`
   margin-bottom: 12px;
 `;
 
-export const FlatListTextView = styled.View<allViewProps>`
-  height: ${(props: allViewProps) => props.ySize}px;
-  width: ${(props: allViewProps) => props.xSize}%;
+export const FlatListTextView = styled.View<maxHeightProps>`
+  height: ${(props: maxHeightProps) => Math.min(props.ySize, props.maxHeight || props.ySize)}px;
+  width: ${(props: maxHeightProps) => props.xSize}%;
+  overflow: hidden;
 `;
 
 export const ModalContainer = styled.View<allViewProps>`
