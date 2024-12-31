@@ -1,5 +1,5 @@
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, } from "react";
 import { Platform, ActivityIndicator, StatusBar } from "react-native";
 import {
   Container,
@@ -16,12 +16,25 @@ import Eye from "../../assets/eye.svg";
 import EyeOff from "../../assets/eye-off.svg";
 import { ButtonText } from "../../Components/texts";
 import { RootStackParams } from "../../Routes";
+import { AuthContext } from "../../Context/auth";
 
 export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const {login} = useContext(AuthContext);
+
+  const handleLogin = async() => {
+    try {
+      await login({
+        username: userName,
+        pass: password
+      })
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <SafeAreaView>
@@ -58,7 +71,7 @@ export default function SignIn() {
             </RowView>
           </GeneralView>
           <Button
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => handleLogin()}
             xSize={90}
             ySize={52}
           >

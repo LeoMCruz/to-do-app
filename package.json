@@ -27,7 +27,8 @@
     "react-native-size-matters": "^0.4.2",
     "react-native-svg": "15.8.0",
     "react-test-renderer": "18.3.1",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "@react-native-async-storage/async-storage": "1.23.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -40,11 +41,10 @@
     "typescript": "^5.3.3"
   },
   "jest": {
-  "preset": "jest-expo",
-  "transformIgnorePatterns": [
-    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg)"
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg)"
     ]
   },
-
   "private": true
 }

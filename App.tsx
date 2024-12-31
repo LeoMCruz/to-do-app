@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import StackRoutes from "./src/Routes";
-import AppLoading from 'expo-app-loading';
+import { AuthProvider } from "./src/Context/auth";
 import {
   useFonts,
   Inter_100Thin,
@@ -34,7 +34,9 @@ export default function App() {
   } else {
   return (
     <NavigationContainer>
-      <StackRoutes></StackRoutes>
+      <AuthProvider>
+        <StackRoutes/>
+      </AuthProvider>
     </NavigationContainer>
   );
 }
