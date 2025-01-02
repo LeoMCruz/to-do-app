@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 import {
-  ZeroTask,
   TaskStatus,
   CreatedView,
   DoneView,
@@ -12,7 +11,6 @@ import {
 } from "../../../Components/views";
 import {
   BoldText,
-  FineText,
   CreatedText,
   DoneText,
   ItemText,

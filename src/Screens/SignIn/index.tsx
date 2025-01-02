@@ -62,6 +62,7 @@ export default function SignIn() {
                 onChangeText={(text) => setPassword(text)}
               />
               <Button
+                testID="handle-secureTextEntry"
                 xSize={16}
                 ySize={52}
                 onPress={() => setHidePassword(!hidePassword)}

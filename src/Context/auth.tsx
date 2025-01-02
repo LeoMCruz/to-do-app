@@ -12,7 +12,7 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 function AuthProvider({ children }: {children: React.ReactNode}) {
   const [isAuthenticated, setIsAuthinticated] = useState(false);
   const [user, setUser] = useState("admin");
-  const [password, setPassword] = useState("admin");
+  const [password, setPassword] = useState("password");
 
   useEffect(() =>{
     async function loadData(){

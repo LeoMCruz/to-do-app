@@ -129,25 +129,36 @@ describe("Login Screen", () => {
         const { getByPlaceholderText, debug } = renderSignIn();
         
         fireEvent.changeText(getByPlaceholderText("Username:"), "admin");
-        fireEvent.changeText(getByPlaceholderText("Senha"), "admin");
+        fireEvent.changeText(getByPlaceholderText("Senha"), "password");
 
         expect(getByPlaceholderText("Username:").props.value).toBe("admin");
-        expect(getByPlaceholderText("Senha").props.value).toBe("admin");
+        expect(getByPlaceholderText("Senha").props.value).toBe("password");
     });
 
     it("should call login function when button is pressed", async () => {
         const { getByPlaceholderText, getByTestId, debug } = renderSignIn();
 
         fireEvent.changeText(getByPlaceholderText("Username:"), "admin");
-        fireEvent.changeText(getByPlaceholderText("Senha"), "admin");
+        fireEvent.changeText(getByPlaceholderText("Senha"), "password");
 
         fireEvent.press(getByTestId("loginButton"));
 
         await waitFor(() => {
             expect(mockLogin).toHaveBeenCalledWith({
                 username: "admin",
-                pass: "admin"
+                pass: "password"
             });
         });
     });
+
+    it("shoul hide/show password when button is pressed", () =>{
+      const { getByTestId, getByPlaceholderText} = renderSignIn();
+
+      fireEvent.changeText(getByPlaceholderText("Senha"), "password");
+      expect(getByPlaceholderText("Senha").props.secureTextEntry).toBe(true);
+
+      fireEvent.press(getByTestId("handle-secureTextEntry"));
+      expect(getByPlaceholderText("Senha").props.secureTextEntry).toBe(false);
+
+    })
 })

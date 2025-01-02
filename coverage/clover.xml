@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1735821705133" clover="3.2.0">
+  <project timestamp="1735821705133" name="All files">
+    <metrics statements="43" coveredstatements="25" conditionals="16" coveredconditionals="7" methods="16" coveredmethods="8" elements="75" coveredelements="40" complexity="0" loc="43" ncloc="43" packages="4" files="4" classes="4"/>
+    <package name="Components">
+      <metrics statements="9" coveredstatements="8" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="1"/>
+      <file name="texts.ts" path="/home/lcruz/Documentos/to-do-app/src/Components/texts.ts">
+        <metrics statements="9" coveredstatements="8" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="1"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
+      </file>
+    </package>
+    <package name="Context">
+      <metrics statements="18" coveredstatements="1" conditionals="6" coveredconditionals="0" methods="7" coveredmethods="0"/>
+      <file name="auth.tsx" path="/home/lcruz/Documentos/to-do-app/src/Context/auth.tsx">
+        <metrics statements="18" coveredstatements="1" conditionals="6" coveredconditionals="0" methods="7" coveredmethods="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="Routes">
+      <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="index.tsx" path="/home/lcruz/Documentos/to-do-app/src/Routes/index.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="Screens.SignIn">
+      <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6"/>
+      <file name="index.tsx" path="/home/lcruz/Documentos/to-do-app/src/Screens/SignIn/index.tsx">
+        <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6"/>
+        <line num="22" count="10" type="stmt"/>
+        <line num="23" count="10" type="stmt"/>
+        <line num="24" count="10" type="stmt"/>
+        <line num="25" count="10" type="stmt"/>
+        <line num="26" count="10" type="stmt"/>
+        <line num="28" count="10" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="39" count="10" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
