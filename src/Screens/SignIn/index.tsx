@@ -1,6 +1,6 @@
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import React, { useState, useContext, useEffect, } from "react";
-import { Platform, ActivityIndicator, StatusBar } from "react-native";
+import React, { useState, useContext,} from "react";
+import { Platform, StatusBar } from "react-native";
 import {
   Container,
   Content,
@@ -37,7 +37,7 @@ export default function SignIn() {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView testID="signIn">
       <Container>
         <Content behavior={Platform.OS === "ios" ? "padding" : undefined} enabled>
           <StatusBar barStyle="light-content" />
@@ -71,6 +71,7 @@ export default function SignIn() {
             </RowView>
           </GeneralView>
           <Button
+            testID="loginButton"
             onPress={() => handleLogin()}
             xSize={90}
             ySize={52}

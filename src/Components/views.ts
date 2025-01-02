@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Dimensions, ViewProps } from "react-native";
+import { Dimensions, ViewProps, Animated } from "react-native";
 
 interface allViewProps extends ViewProps{
   xSize?: number;
@@ -28,6 +28,7 @@ const screenHeight = Dimensions.get("window").height;
 export const Content = styled.KeyboardAvoidingView`
   justify-content: center;
   align-items: center;
+  background-color: #F0EDF2;
   margin: 0;
   padding: 0;
   min-height: ${screenHeight}px;
@@ -211,4 +212,14 @@ export const SplashView = styled.View`
   padding: 0;
   min-height: ${screenHeight}px;
   background-color: #F0EDF2;
+`;
+
+export const AnimatedContainer = styled(Animated.View)<allViewProps>`
+  top: ${screenHeight * 0.277}px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: ${screenHeight * 0.597}px;
 `;

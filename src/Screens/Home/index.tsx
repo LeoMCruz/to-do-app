@@ -15,12 +15,14 @@ import SearchContainer from "./components/searchContainer";
 import { ButtonBoldText } from "../../Components/texts";
 import TaskArea from "./components/taskArea";
 import { MainModal, CreateTaskModal, ErrorModal } from "./components/modals";
+import SpinningIcon from "../../Components/loadingIcon";
 
 export default function Home() {
   const [filter, setFilter] = useState("all");
   const [searchText, setSearchText] = useState("");
   const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false);
   const [openErrorModal, setOpenErrorModal] = useState(false);
+  let spin = false;
 
   function handleOpenCreateTaskModal() {
     setOpenCreateTaskModal((prev: boolean) => !prev);
@@ -79,18 +81,23 @@ export default function Home() {
     );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView testID="home-screen">
       <Content behavior={Platform.OS === "ios" ? "padding" : undefined} enabled>
         <StatusBar barStyle="light-content" />
         <HomeHeader />
         <SearchContainer
           setSearchText={setSearchText}
         />
-        <TaskArea
-          setFilter={setFilter}
-          filteredTasks={filteredTasks}
-          fullTasks={list}
-        />
+        {spin? (
+          <SpinningIcon/>
+        ): (
+          <TaskArea
+            setFilter={setFilter}
+            filteredTasks={filteredTasks}
+            fullTasks={list}
+          />
+
+        )}
 
         <BottomView>
           <BottomButton xSize={30} ySize={52} onPress={()=> handleOpenCreateTaskModal()}>

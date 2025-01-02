@@ -14,6 +14,23 @@ function AuthProvider({ children }: {children: React.ReactNode}) {
   const [user, setUser] = useState("admin");
   const [password, setPassword] = useState("admin");
 
+  useEffect(() =>{
+    async function loadData(){
+      await loadUser();
+    }
+    loadData();
+  },[])
+
+  async function loadUser(){
+    try {
+      const storedUser = await AsyncStorage.getItem("@finUser");
+      if(storedUser)
+        setIsAuthinticated(true);
+    } catch (error) {
+      
+    }
+  }
+
   async function logout() {
     setIsAuthinticated((prev) => !prev);
     await AsyncStorage.removeItem("@finUser");

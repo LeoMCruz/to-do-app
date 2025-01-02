@@ -46,8 +46,8 @@ export function DeleteEditModal({ closeModal, taskId, task, openEdit }: { closeM
 }
 
 export function EditModal({ closeModal, taskId, task }: { closeModal: () => void, taskId: number | null, task: string }) {
-  const [editedTask, setEditedTask] = useState("");
-  const [inputHeight, setInputHeight] = useState(61);
+  const [editedTask, setEditedTask] = useState(task);
+  const [inputHeight, setInputHeight] = useState(0);
 
   const handleContentSizeChange = (event: {
     nativeEvent: { 
@@ -57,7 +57,7 @@ export function EditModal({ closeModal, taskId, task }: { closeModal: () => void
     }
   }) => {
     const newHeight = Math.min(
-      Math.max(61, event.nativeEvent.contentSize.height),
+      Math.max(event.nativeEvent.contentSize.height),
       MAX_INPUT_HEIGHT
     );
     setInputHeight(newHeight);
@@ -81,7 +81,7 @@ export function EditModal({ closeModal, taskId, task }: { closeModal: () => void
                 onContentSizeChange={handleContentSizeChange}
                 textAlignVertical="top"
                 textBreakStrategy="simple"
-                defaultValue={task}
+                value={editedTask}
                 onChangeText={(text: string) => setEditedTask(text)}
                 maxHeight={MAX_INPUT_HEIGHT}
               />
