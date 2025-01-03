@@ -11,10 +11,10 @@ import {
 } from "../../Components/views";
 import { Button } from "../../Components/button";
 import Logo from "../../assets/Logo.svg";
-import { Input } from "../../Components/Inputs";
+import { LoginInput } from "../../Components/Inputs";
 import Eye from "../../assets/eye.svg";
 import EyeOff from "../../assets/eye-off.svg";
-import { ButtonText } from "../../Components/texts";
+import { ButtonText, LoginErrorText } from "../../Components/texts";
 import { RootStackParams } from "../../Routes";
 import { AuthContext } from "../../Context/auth";
 
@@ -22,15 +22,15 @@ export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
-  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const [res, setRes] = useState(true);
   const {login} = useContext(AuthContext);
 
   const handleLogin = async() => {
     try {
-      await login({
+      setRes(await login({
         username: userName,
         pass: password
-      })
+      }))
     } catch (error) {
       
     }
@@ -45,17 +45,20 @@ export default function SignIn() {
             <Logo />
           </LogoView>
           <GeneralView>
-            <Input
+            <LoginInput
               xSize={100}
               ySize={52}
               placeholder="Username:"
+              isValid={res}
               value={userName}
               onChangeText={(text) => setUserName(text)}
             />
+            {!res? <LoginErrorText>Username inválido</LoginErrorText> : <></> }
             <RowView xSize={100}>
-              <Input
+              <LoginInput
                 xSize={82}
                 ySize={52}
+                isValid={res}
                 placeholder="Senha"
                 secureTextEntry={hidePassword}
                 value={password}
@@ -70,6 +73,8 @@ export default function SignIn() {
                 {hidePassword ? <Eye width={22} height={22} /> : <EyeOff width={22} height={22}/>}
               </Button>
             </RowView>
+            {!res? <LoginErrorText>Senha inválida</LoginErrorText> : <></> }
+            
           </GeneralView>
           <Button
             testID="loginButton"

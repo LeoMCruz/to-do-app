@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
@@ -149,7 +149,12 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,13 +175,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,7 +192,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,6 +216,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -217,6 +225,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -248,10 +258,10 @@ import {
 } from "../../Components/views";
 import { Button } from "../../Components/button";
 import Logo from "../../assets/Logo.svg";
-import { Input } from "../../Components/Inputs";
+import { LoginInput } from "../../Components/Inputs";
 import Eye from "../../assets/eye.svg";
 import EyeOff from "../../assets/eye-off.svg";
-import { ButtonText } from "../../Components/texts";
+import { ButtonText, LoginErrorText } from "../../Components/texts";
 import { RootStackParams } from "../../Routes";
 import { AuthContext } from "../../Context/auth";
 &nbsp;
@@ -259,15 +269,15 @@ export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
-  const navigation = useNavigation&lt;NavigationProp&lt;RootStackParams&gt;&gt;();
+  const [res, setRes] = useState(true);
   const {login} = useContext(AuthContext);
 &nbsp;
   const handleLogin = async() =&gt; {
     try {
-      await login({
+      setRes(await login({
         username: userName,
         pass: password
-      })
+      }))
     } catch (error) {
       
     }
@@ -282,17 +292,20 @@ export default function SignIn() {
             &lt;Logo /&gt;
           &lt;/LogoView&gt;
           &lt;GeneralView&gt;
-            &lt;Input
+            &lt;LoginInput
               xSize={100}
               ySize={52}
               placeholder="Username:"
+              isValid={res}
               value={userName}
               onChangeText={(text) =&gt; setUserName(text)}
             /&gt;
+            {!res? &lt;LoginErrorText&gt;Username inválido&lt;/LoginErrorText&gt; : &lt;&gt;&lt;/&gt; }
             &lt;RowView xSize={100}&gt;
-              &lt;Input
+              &lt;LoginInput
                 xSize={82}
                 ySize={52}
+                isValid={res}
                 placeholder="Senha"
                 secureTextEntry={hidePassword}
                 value={password}
@@ -307,6 +320,8 @@ export default function SignIn() {
                 {hidePassword ? &lt;Eye width={22} height={22} /&gt; : &lt;EyeOff width={22} height={22}/&gt;}
               &lt;/Button&gt;
             &lt;/RowView&gt;
+            {!res? &lt;LoginErrorText&gt;Senha inválida&lt;/LoginErrorText&gt; : &lt;&gt;&lt;/&gt; }
+            
           &lt;/GeneralView&gt;
           &lt;Button
             testID="loginButton"
@@ -328,7 +343,7 @@ export default function SignIn() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-02T12:41:45.123Z
+                at 2025-01-03T13:29:04.222Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

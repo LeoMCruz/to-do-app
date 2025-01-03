@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthContextData {
     isAuthenticated: boolean;
-    login: (credentials: { username: string; pass: string }) => Promise<void>;
+    login: (credentials: { username: string; pass: string }) => Promise<boolean>;
     logout: () => void;
 }
 
@@ -41,9 +41,12 @@ function AuthProvider({ children }: {children: React.ReactNode}) {
       if(username === user && pass === password){
         setIsAuthinticated(true);
         await AsyncStorage.setItem("@finUser", JSON.stringify(user))
+        return true
       }
+      else
+        return false;
     } catch (error) {
-      
+      return false;
     }
   }
 

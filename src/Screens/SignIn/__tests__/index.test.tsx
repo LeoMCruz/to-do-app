@@ -76,7 +76,7 @@ jest.mock("../../../Components/views", () => ({
     const { TextInput } = require('react-native');
 
     return {
-        Input: function MockInput(props: InputProps) {            
+        LoginInput: function MockInput(props: InputProps) {            
             return (
                 <TextInput
                     value={props.value}
@@ -151,7 +151,7 @@ describe("Login Screen", () => {
         });
     });
 
-    it("shoul hide/show password when button is pressed", () =>{
+    it("should hide/show password when button is pressed", () =>{
       const { getByTestId, getByPlaceholderText} = renderSignIn();
 
       fireEvent.changeText(getByPlaceholderText("Senha"), "password");

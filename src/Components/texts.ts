@@ -51,3 +51,13 @@ export const ItemText = styled.Text<allTextProps>`
   color: #333;
   text-decoration: ${(props: allTextProps) => (props.done ? "line-through" : "none")};
 `;
+
+export const LoginErrorText = styled.Text`
+  color: #C2464D;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: "Inter_700Bold";
+  margin-top: -8px;
+  margin-bottom: 5px;
+  align-self: left;
+`;
