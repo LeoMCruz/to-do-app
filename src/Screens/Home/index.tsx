@@ -16,69 +16,103 @@ import { ButtonBoldText } from "../../Components/texts";
 import TaskArea from "./components/taskArea";
 import { MainModal, CreateTaskModal, ErrorModal } from "./components/modals";
 import SpinningIcon from "../../Components/loadingIcon";
+import { AuthContext } from "../../Context/auth";
 
 export default function Home() {
   const [filter, setFilter] = useState("all");
   const [searchText, setSearchText] = useState("");
   const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false);
   const [openErrorModal, setOpenErrorModal] = useState(false);
-  let spin = false;
+  const [list, setList] = useState<TaskProps[]>([]);
+  const [spin, setSpin] = useState(false);
+  const {getTasks} = useContext(AuthContext);
+
+  interface TaskProps{
+    id: number,
+    tarefa: string,
+    status: boolean
+  }
 
   function handleOpenCreateTaskModal() {
     setOpenCreateTaskModal((prev: boolean) => !prev);
   }
 
-  const list = [
-    {
-      id: 1,
-      task: "Arrumar a casa é uma tarefa constante, mas essencial para manter o ambiente organizado e confortável.",
-      done: true,
-    },
-    {
-      id: 2,
-      task: "Preparar o café da manhã com calma é uma forma simples de começar o dia com energia e disposição.",
-      done: false,
-    },
-    {
-      id: 3,
-      task: "Fazer compras no supermercado exige planejamento para evitar esquecer itens importantes da lista.",
-      done: true,
-    },
-    {
-      id: 4,
-      task: "Aproveitar o tempo livre para ler um livro é uma excelente maneira de relaxar e aprender algo novo.",
-      done: false,
-    },
-    {
-      id: 5,
-      task: "Limpar a cozinha após o almoço torna o espaço mais agradável e facilita na hora de preparar a próxima refeição.",
-      done: false,
-    },
-    {
-      id: 6,
-      task: "Responder aos e-mails de trabalho com atenção ajuda a manter a comunicação fluida e as tarefas em dia.",
-      done: true,
-    },
-    {
-      id: 7,
-      task: "Organizar a agenda da semana é um passo importante para garantir que tudo seja feito de maneira eficiente.",
-      done: false,
-    },
-  ];
+  // const list = [
+  //   {
+  //     id: 1,
+  //     task: "Arrumar a casa é uma tarefa constante, mas essencial para manter o ambiente organizado e confortável.",
+  //     done: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     task: "Preparar o café da manhã com calma é uma forma simples de começar o dia com energia e disposição.",
+  //     done: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     task: "Fazer compras no supermercado exige planejamento para evitar esquecer itens importantes da lista.",
+  //     done: true,
+  //   },
+  //   {
+  //     id: 4,
+  //     task: "Aproveitar o tempo livre para ler um livro é uma excelente maneira de relaxar e aprender algo novo.",
+  //     done: false,
+  //   },
+  //   {
+  //     id: 5,
+  //     task: "Limpar a cozinha após o almoço torna o espaço mais agradável e facilita na hora de preparar a próxima refeição.",
+  //     done: false,
+  //   },
+  //   {
+  //     id: 6,
+  //     task: "Responder aos e-mails de trabalho com atenção ajuda a manter a comunicação fluida e as tarefas em dia.",
+  //     done: true,
+  //   },
+  //   {
+  //     id: 7,
+  //     task: "Organizar a agenda da semana é um passo importante para garantir que tudo seja feito de maneira eficiente.",
+  //     done: false,
+  //   },
+  // ];
   const sortedList = [...list].sort((a, b) => {
-    if (a.done === b.done) return 0;
-    return a.done ? 1 : -1;
+    if (a.status === b.status) return 0;
+    return a.status ? 1 : -1;
   });
 
   const filteredTasks = sortedList
     .filter((item) => {
-      if (filter === "done") return item.done;
-      if (filter === "created") return !item.done;
+      if (filter === "done") return item.status;
+      if (filter === "created") return !item.status;
       return true;
     })
     .filter((item) =>
-      item.task.toLowerCase().includes(searchText.toLowerCase())
+      item.tarefa.toLowerCase().includes(searchText.toLowerCase())
     );
+
+  async function persistData() {
+    try {
+      setSpin(true);
+      const allTasks = await getTasks();
+      
+      if (!allTasks) {
+        throw new Error("erro ao receber os dados da api");
+      }else{
+        setList(allTasks);
+      }
+      
+    } catch (error) {
+      setOpenErrorModal(true);
+    } finally {
+      setSpin(false);
+    }
+  }
+
+  useEffect(() => {
+    async function loadData() {
+      await persistData();
+    }
+    loadData();
+  }, []);
 
   return (
     <SafeAreaView testID="home-screen">
@@ -95,6 +129,7 @@ export default function Home() {
             setFilter={setFilter}
             filteredTasks={filteredTasks}
             fullTasks={list}
+            setList = { setList}
           />
 
         )}
@@ -112,6 +147,7 @@ export default function Home() {
         children={
           <CreateTaskModal
             closeModal={() => setOpenCreateTaskModal((prev: boolean) => !prev)}
+            setList = {setList}
           />
         }
         />
@@ -120,6 +156,7 @@ export default function Home() {
        closeModal={() => setOpenErrorModal((prev: boolean) => !prev)} 
        children={
         <ErrorModal
+          persistData = {() => persistData()}
           closeModal={() => setOpenErrorModal((prev: boolean) => !prev)} 
         />
        }

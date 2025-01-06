@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -33,16 +31,6 @@ jest.mock("../../../assets/eye.svg", () => "Eye");
 jest.mock("../../../assets/eye-off.svg", () => "EyeOff");
 
 
-jest.mock("@react-navigation/native", () => {
-    const actualNav = jest.requireActual("@react-navigation/native");
-    return {
-      ...actualNav,
-      useNavigation: () => ({
-        navigate: jest.fn(),
-      }),
-    };
-  });
-
 jest.mock("../../../Components/views", () => ({
     Container: "Container",
     Content: "Content",
@@ -52,42 +40,8 @@ jest.mock("../../../Components/views", () => ({
     SafeAreaView: "SafeAreaView",
   }));
   
-  jest.mock("../../../Components/button", () => {
-    const { TouchableOpacity} = require('react-native');
-    return {
-        Button: function MockButton({ children, onPress, testID }: {
-            children: React.ReactNode, 
-            onPress: () => void, 
-            testID?: string
-        }) {
-            return (
-                <TouchableOpacity
-                    testID={testID}
-                    onPress={onPress}
-                >
-                    {children}
-                </TouchableOpacity>
-            );
-        }
-    };
-});
 
-  jest.mock("../../../Components/Inputs", () => {
-    const { TextInput } = require('react-native');
 
-    return {
-        LoginInput: function MockInput(props: InputProps) {            
-            return (
-                <TextInput
-                    value={props.value}
-                    onChangeText={props.onChangeText}
-                    placeholder={props.placeholder}
-                    secureTextEntry={props.secureTextEntry}
-                />
-            );
-        }
-    };
-});
 
 jest.mock("@react-native-async-storage/async-storage", () => {
     const mockAsyncStorage = require("@react-native-async-storage/async-storage/jest/async-storage-mock");
@@ -102,6 +56,7 @@ describe("Login Screen", () => {
           login: mockLogin,
           isAuthenticated: false,
           logout: jest.fn(),
+          getTasks: jest.fn()
         };
     
         return render(
@@ -119,10 +74,9 @@ describe("Login Screen", () => {
     });
 
     it("should render login screen correctly", () => {
-    const { getByPlaceholderText, debug } = renderSignIn();
-
-    expect(getByPlaceholderText("Username:")).toBeTruthy();
-    expect(getByPlaceholderText("Senha")).toBeTruthy();
+      const { getByPlaceholderText, debug } = renderSignIn();
+      expect(getByPlaceholderText("Username:")).toBeTruthy();
+      expect(getByPlaceholderText("Senha")).toBeTruthy();
     });
 
     it("should change input text when user type ", () => {

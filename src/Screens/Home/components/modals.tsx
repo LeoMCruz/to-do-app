@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "react-native-modal";
 import {
   ModalContainer,
@@ -15,10 +15,27 @@ import Close from "../../../assets/close.svg";
 import PlusCircle from "../../../assets/PlusCircleRegular.svg";
 import { Input, ModalInput } from "../../../Components/Inputs";
 import { Dimensions } from "react-native";
+import { AuthContext } from "../../../Context/auth";
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const MAX_INPUT_HEIGHT = SCREEN_HEIGHT * 0.25;
 
-export function DeleteEditModal({ closeModal, taskId, task, openEdit }: { closeModal: () => void, taskId: number | null, task: string, openEdit: () => void }) {
+interface Task {
+  id: number;
+  tarefa: string;
+  status: boolean;
+}
+
+
+export function DeleteEditModal({ closeModal, taskId, task, openEdit, setList }
+  : { closeModal: () => void, taskId: number | null, task: string, openEdit: () => void, setList: React.Dispatch<React.SetStateAction<Task[]>> }) {
+  const {deleteTask, getTasks} = useContext(AuthContext);
+
+  async function handleDeleteTask(){
+    await deleteTask({taskId});
+    const allTasks = await getTasks();
+    setList(allTasks);
+    closeModal();
+  }
 
   return (
         <ModalMainView>
@@ -36,7 +53,7 @@ export function DeleteEditModal({ closeModal, taskId, task, openEdit }: { closeM
               <Button xSize={49} ySize={53} onPress={openEdit}>
                 <ButtonText>Editar</ButtonText>
               </Button>
-              <Button xSize={49} ySize={53}>
+              <Button xSize={49} ySize={53} onPress={() => handleDeleteTask()}>
                 <ButtonText>Remover</ButtonText>
               </Button>
             </ModalBottom>
@@ -45,9 +62,12 @@ export function DeleteEditModal({ closeModal, taskId, task, openEdit }: { closeM
   );
 }
 
-export function EditModal({ closeModal, taskId, task }: { closeModal: () => void, taskId: number | null, task: string }) {
+export function EditModal({ closeModal, taskId, task, setList, status }
+  : { closeModal: () => void, taskId: number | null, task: string, 
+    setList: React.Dispatch<React.SetStateAction<Task[]>>, status: boolean }) {
   const [editedTask, setEditedTask] = useState(task);
   const [inputHeight, setInputHeight] = useState(0);
+  const {editTask, getTasks} = useContext(AuthContext);
 
   const handleContentSizeChange = (event: {
     nativeEvent: { 
@@ -62,6 +82,13 @@ export function EditModal({ closeModal, taskId, task }: { closeModal: () => void
     );
     setInputHeight(newHeight);
   };
+
+  async function handleEditTask(){
+    await editTask({taskId, task: editedTask, status});
+    const allTasks = await getTasks();
+    setList(allTasks);
+    closeModal();
+  }
 
   return (
     <ModalMainView>
@@ -86,7 +113,7 @@ export function EditModal({ closeModal, taskId, task }: { closeModal: () => void
                 maxHeight={MAX_INPUT_HEIGHT}
               />
             </FlatListTextView>
-            <ModalButton xSize={18} ySize={57}>
+            <ModalButton xSize={18} ySize={57} onPress={() => handleEditTask()}>
               <PlusCircle width={30} height={20} />
             </ModalButton>
           </RowView>
@@ -95,9 +122,10 @@ export function EditModal({ closeModal, taskId, task }: { closeModal: () => void
   );
 }
 
-export function CreateTaskModal({closeModal}: {closeModal: () => void}){
+export function CreateTaskModal({closeModal, setList}: {closeModal: () => void, setList: React.Dispatch<React.SetStateAction<Task[]>>}){
   const [inputHeight, setInputHeight] = useState(0);
   const [task, setTask] = useState("");
+  const {createTask, getTasks} = useContext(AuthContext);
 
   const handleContentSizeChange = (event: {
     nativeEvent: { 
@@ -112,6 +140,13 @@ export function CreateTaskModal({closeModal}: {closeModal: () => void}){
     );
     setInputHeight(newHeight);
   };
+
+  async function handleCreateTask(){
+    await createTask({task});
+    closeModal();
+    const allTasks = await getTasks();
+    setList(allTasks);    
+  }
 
   return (
     <ModalMainView>
@@ -138,7 +173,7 @@ export function CreateTaskModal({closeModal}: {closeModal: () => void}){
               />
             </FlatListTextView>
             {task? (
-            <ModalButton xSize={18} ySize={57}>
+            <ModalButton xSize={18} ySize={57} onPress={()=> handleCreateTask()}>
               <PlusCircle width={30} height={20} />
             </ModalButton>
             ):(
@@ -152,13 +187,13 @@ export function CreateTaskModal({closeModal}: {closeModal: () => void}){
   );
 }
 
-export function ErrorModal({closeModal}:{ closeModal: () => void }) {
+export function ErrorModal({closeModal, persistData}:{ closeModal: () => void, persistData: () => void }) {
   return(
     <ModalMainView>
       <ErrorContainer BgColor="#D9D9D9">
         <BoldText>ERRO</BoldText>
         <ButtonText letterColor="#6B6572">Erro ao receber os dados da API</ButtonText>
-        <ModalFakeButton>
+        <ModalFakeButton onPress={() => persistData()}>
           <BoldText>Tentar novamente</BoldText>
         </ModalFakeButton>
       </ErrorContainer>

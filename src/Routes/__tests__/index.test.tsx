@@ -35,7 +35,7 @@ jest.mock('../../Screens/SignIn', () => {
         </SafeAreaView>
       );
     };
-    return SignIn;  // Retorna a função do componente, não um objeto
+    return SignIn; 
 });
 
 jest.mock('@react-navigation/native-stack', () => {
@@ -64,6 +64,7 @@ describe("Auth Routes", () => {
             login: jest.fn(),
             isAuthenticated: isAuthenticated,
             logout: jest.fn(),
+            getTasks: jest.fn()
         };
         
         return render(

@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1735910944237" clover="3.2.0">
-  <project timestamp="1735910944237" name="All files">
-    <metrics statements="47" coveredstatements="26" conditionals="20" coveredconditionals="11" methods="16" coveredmethods="8" elements="83" coveredelements="45" complexity="0" loc="47" ncloc="47" packages="4" files="4" classes="4"/>
+<coverage generated="1735917140076" clover="3.2.0">
+  <project timestamp="1735917140076" name="All files">
+    <metrics statements="73" coveredstatements="40" conditionals="28" coveredconditionals="13" methods="33" coveredmethods="13" elements="134" coveredelements="66" complexity="0" loc="73" ncloc="73" packages="4" files="6" classes="6"/>
     <package name="Components">
-      <metrics statements="10" coveredstatements="9" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="1"/>
+      <metrics statements="36" coveredstatements="23" conditionals="12" coveredconditionals="4" methods="19" coveredmethods="6"/>
+      <file name="Inputs.ts" path="/home/lcruz/Documentos/to-do-app/src/Components/Inputs.ts">
+        <metrics statements="11" coveredstatements="6" conditionals="6" coveredconditionals="2" methods="8" coveredmethods="3"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="31" count="22" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="22" type="stmt"/>
+        <line num="34" count="22" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
+      </file>
+      <file name="button.ts" path="/home/lcruz/Documentos/to-do-app/src/Components/button.ts">
+        <metrics statements="15" coveredstatements="8" conditionals="2" coveredconditionals="0" methods="9" coveredmethods="2"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="15" count="22" type="stmt"/>
+        <line num="16" count="22" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+      </file>
       <file name="texts.ts" path="/home/lcruz/Documentos/to-do-app/src/Components/texts.ts">
         <metrics statements="10" coveredstatements="9" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="1"/>
         <line num="9" count="1" type="stmt"/>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FlatList } from "react-native";
 import {
   TaskStatus,
@@ -21,18 +21,22 @@ import Trash from "../../../assets/TrashRegular.svg";
 import Vector from "../../../assets/vector.svg";
 import VectorEmpty from "../../../assets/vectorEmpty.svg";
 import { DeleteEditModal, EditModal, MainModal } from "./modals";
+import { AuthContext } from "../../../Context/auth";
 
 interface Task {
   id: number;
-  task: string;
-  done: boolean;
+  tarefa: string;
+  status: boolean;
 }
 
-export default function TaskArea({ setFilter, filteredTasks, fullTasks }: { setFilter: (filter: string) => void, filteredTasks: Task[], fullTasks: Task[] }) {
+export default function TaskArea({ setFilter, filteredTasks, fullTasks, setList }
+  : { setFilter: (filter: string) => void, filteredTasks: Task[], fullTasks: Task[], setList: React.Dispatch<React.SetStateAction<Task[]>> }) {
   const [openModal, setOpenModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState<number | null>(null);
   const [taskText, setTaskText] = useState("");
+  const [taskStatus, setTaskStatus] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
+  const {editTask, getTasks} = useContext(AuthContext);
 
   const switchToEditModal = () => {
     setOpenModal((prev: boolean) => !prev);
@@ -41,20 +45,34 @@ export default function TaskArea({ setFilter, filteredTasks, fullTasks }: { setF
     }, 0);
   };
 
-  function handleOpenModal(id: number, task: string) {
+  function handleOpenModal(id: number, task: string, status: boolean) {
     setSelectedTask(id);
     setTaskText(task);
+    setTaskStatus(status);
     setOpenModal((prev: boolean) => !prev);
   }
 
+  async function handleCheck(taskId: number, task: string, status: boolean){
+    await editTask({taskId, task, status});
+    const allTasks = await getTasks();
+    setList(allTasks);
+  }
+
   const RenderFlatList = ({ item }: { item: Task }) => (
-    <FlatListItems done={item.done}>
-      <ItemButton xSize={20} ySize={20}>{item.done ? <Vector width={16.25} height={16.25}/>
-       : <VectorEmpty width={16.25} height={16.25}/>}</ItemButton>
+    <FlatListItems done={item.status}>
+       {item.status? (
+          <ItemButton xSize={20} ySize={20} onPress={() => handleCheck(item.id, item.tarefa, false)}>
+            <Vector width={16.25} height={16.25} />
+          </ItemButton>
+       ):(
+        <ItemButton xSize={20} ySize={20} onPress={() => handleCheck(item.id, item.tarefa, true)}>
+        <VectorEmpty width={16.25} height={16.25} />
+      </ItemButton>
+       )}
       <FlatListTextView xSize={80} ySize={60}>
-        <ItemText done={item.done}>{item.task}</ItemText>
+        <ItemText done={item.status}>{item.tarefa}</ItemText>
       </FlatListTextView>
-      <ItemButton xSize={24} ySize={24} onPress={() => handleOpenModal(item.id, item.task)}>
+      <ItemButton xSize={24} ySize={24} onPress={() => handleOpenModal(item.id, item.tarefa, item.status)}>
         <Trash width={16} height={16} />
       </ItemButton>
     </FlatListItems>
@@ -79,10 +97,10 @@ export default function TaskArea({ setFilter, filteredTasks, fullTasks }: { setF
           <FakeButton onPress={() => setFilter("done")}>
             <BoldText>Concluidas</BoldText>
           </FakeButton>
-          {fullTasks.filter((item) => item.done).length > 0 ? (
+          {fullTasks.filter((item) => item.status).length > 0 ? (
             <DoneView>
               <DoneText>
-                {fullTasks.filter((item) => item.done).length}
+                {fullTasks.filter((item) => item.status).length}
               </DoneText>
             </DoneView>
           ) : (
@@ -107,6 +125,7 @@ export default function TaskArea({ setFilter, filteredTasks, fullTasks }: { setF
             task={taskText}
             closeModal={() => setOpenModal((prev: boolean) => !prev)}
             openEdit={switchToEditModal}
+            setList = {setList}
           />
         }
       />
@@ -118,6 +137,8 @@ export default function TaskArea({ setFilter, filteredTasks, fullTasks }: { setF
             taskId={selectedTask}
             task={taskText}
             closeModal={() => setEditModalVisible((prev: boolean) => !prev)}
+            setList={setList}
+            status = {taskStatus} 
           />
         }
       />
