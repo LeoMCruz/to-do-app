@@ -28,6 +28,7 @@ This is a simple project, to you add your daily tasks and mark it if done.
 - Fallow the Israel Barberino tutorial to setup your EC2 instance, and run the api [Deploy EC2](https://israelbarberino-dev.notion.site/Guia-para-Deploy-em-inst-ncia-do-AWS-EC2-12da01dcbda18080a08be3007e1ec9cf).
 - Clone Git repository: 
     + git clone https://github.com/LeoMCruz/to-do-app.git
+- Install Node.js
 - Open project folder and install the dependencies using "npm install" or "yarn".
 - Run the command "npx expo start", to start the project.
 - If you have the Android Studio on you machine, after the last step, click "A", to open the emulator.
