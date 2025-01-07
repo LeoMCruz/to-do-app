@@ -29,6 +29,7 @@ This is a simple project, to you add your daily tasks and mark it if done.
 - Clone Git repository: 
     + git clone https://github.com/LeoMCruz/to-do-app.git
 - Install Node.js
+- Install NPM or Yarn.
 - Open project folder and install the dependencies using "npm install" or "yarn".
 - Run the command "npx expo start", to start the project.
 - If you have the Android Studio on you machine, after the last step, click "A", to open the emulator.
