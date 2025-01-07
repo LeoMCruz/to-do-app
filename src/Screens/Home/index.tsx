@@ -22,7 +22,7 @@ export default function Home() {
   const [filter, setFilter] = useState("all");
   const [searchText, setSearchText] = useState("");
   const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false);
-  const [openErrorModal, setOpenErrorModal] = useState(false);
+  const [openErrorModal, setOpenErrorModal] = useState(false); 
   const [list, setList] = useState<TaskProps[]>([]);
   const [spin, setSpin] = useState(false);
   const {getTasks} = useContext(AuthContext);

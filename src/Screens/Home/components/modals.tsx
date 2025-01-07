@@ -16,6 +16,8 @@ import PlusCircle from "../../../assets/PlusCircleRegular.svg";
 import { Input, ModalInput } from "../../../Components/Inputs";
 import { Dimensions } from "react-native";
 import { AuthContext } from "../../../Context/auth";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "../../../Routes";
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const MAX_INPUT_HEIGHT = SCREEN_HEIGHT * 0.25;
 
@@ -195,6 +197,32 @@ export function ErrorModal({closeModal, persistData}:{ closeModal: () => void, p
         <ButtonText letterColor="#6B6572">Erro ao receber os dados da API</ButtonText>
         <ModalFakeButton onPress={() => persistData()}>
           <BoldText>Tentar novamente</BoldText>
+        </ModalFakeButton>
+      </ErrorContainer>
+    </ModalMainView>
+  );
+}
+
+export function ExpiredTokenModal() {
+  const navigation = useNavigation<StackNavigationProp>();
+  const {logout} = useContext(AuthContext);
+
+  async function handleExpiredToken(){
+    try {
+      await  logout();
+      // setTokenExpired(false);
+    } catch (error) {
+      console.log("erro ao deslogar");
+    }
+  }
+
+  return(
+    <ModalMainView>
+      <ErrorContainer BgColor="#D9D9D9">
+        <BoldText>ERRO</BoldText>
+        <ButtonText letterColor="#6B6572">Sessão Expirada</ButtonText>
+        <ModalFakeButton onPress={() => handleExpiredToken()}>
+          <BoldText>Fazer Login</BoldText>
         </ModalFakeButton>
       </ErrorContainer>
     </ModalMainView>

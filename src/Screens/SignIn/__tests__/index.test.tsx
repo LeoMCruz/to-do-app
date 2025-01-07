@@ -56,7 +56,10 @@ describe("Login Screen", () => {
           login: mockLogin,
           isAuthenticated: false,
           logout: jest.fn(),
-          getTasks: jest.fn()
+          getTasks: jest.fn(),
+          createTask: jest.fn(),
+          deleteTask: jest.fn(),
+          editTask: jest.fn()
         };
     
         return render(

@@ -17,9 +17,9 @@ export default function HomeHeader() {
 
   const handleLogout = async() =>{
     try {
-        logout();
+      await  logout();
     } catch (error) {
-      
+      console.log("erro ao deslogar");
     }
   }
   return (

@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../services/api";
+import { jwtDecode } from "jwt-decode";
 
 interface Task{
   id: number,
@@ -17,12 +18,18 @@ interface AuthContextData {
     editTask: (editTasks: {taskId: number | null, task: string, status: boolean}) => void;
 }
 
+interface JWTPayload {
+  exp: number;  
+  iat: number;     
+  sub?: string;   
+  username?: string; 
+}
+
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: {children: React.ReactNode}) {
   const [isAuthenticated, setIsAuthinticated] = useState(false);
-  const [user, setUser] = useState("admin");
-  const [password, setPassword] = useState("password");
+  const [tokenExpired, setTokenExpired] = useState(false)
 
   useEffect(() =>{
     async function loadData(){
@@ -41,14 +48,14 @@ function AuthProvider({ children }: {children: React.ReactNode}) {
 
       }
     } catch (error) {
-      
+      setIsAuthinticated(false);
     }
   }
 
   async function logout() {
-    setIsAuthinticated((prev) => !prev);
-    await AsyncStorage.removeItem("@finUser");
+    setIsAuthinticated(false);
     await AsyncStorage.removeItem("@token");
+    await AsyncStorage.clear();
     delete api.defaults.headers.common['Authorization'];
   }
 
@@ -111,6 +118,24 @@ function AuthProvider({ children }: {children: React.ReactNode}) {
       });
     } catch (error) {
       console.log("Erro ao editar tarefa", error);
+    }
+  }
+
+  async function isTokenExpired(): Promise<boolean>  {
+    try {
+      const storedToken = await AsyncStorage.getItem("@token");
+      if(storedToken){
+        const decoded: JWTPayload = jwtDecode(storedToken);
+        if (decoded.exp < Date.now() / 1000) {
+          return true;
+        }
+        return false;
+      }
+      else
+        return false;
+    } catch (error) {
+      console.error("erro ao decodificar token", error);
+      return false;
     }
   }
 

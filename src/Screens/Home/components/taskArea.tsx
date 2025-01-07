@@ -60,15 +60,12 @@ export default function TaskArea({ setFilter, filteredTasks, fullTasks, setList 
 
   const RenderFlatList = ({ item }: { item: Task }) => (
     <FlatListItems done={item.status}>
-       {item.status? (
-          <ItemButton xSize={20} ySize={20} onPress={() => handleCheck(item.id, item.tarefa, false)}>
-            <Vector width={16.25} height={16.25} />
+          <ItemButton xSize={20} ySize={20} onPress={() => handleCheck(item.id, item.tarefa, !item.status)}>
+            {item.status? (
+              <Vector width={16.25} height={16.25} />
+            ):
+            (<VectorEmpty width={16.25} height={16.25} />)}
           </ItemButton>
-       ):(
-        <ItemButton xSize={20} ySize={20} onPress={() => handleCheck(item.id, item.tarefa, true)}>
-        <VectorEmpty width={16.25} height={16.25} />
-      </ItemButton>
-       )}
       <FlatListTextView xSize={80} ySize={60}>
         <ItemText done={item.status}>{item.tarefa}</ItemText>
       </FlatListTextView>
