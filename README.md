@@ -7,6 +7,11 @@ This is a simple project, to you add your daily tasks and mark it if done.
 - React Native
 - Axios
 - Aws EC2 instance
+- Java
+- Spring Boot
+- Spring Security
+- Token Jwt
+- Spring JPA
 
 # Features and Requirements
 
@@ -36,7 +41,7 @@ This is a simple project, to you add your daily tasks and mark it if done.
 - If you dont have Android Studio, you can download expo-go app on your phone and scan the QRCODE.
 
 ## Apresentation Video
-[YouTube](https://youtu.be/mwbyx43Fomg)
+[YouTube](https://youtu.be/d03JnZwHutM)
 
 ## Api file 
 [API](https://youtu.be/mwbyx43Fomg)
